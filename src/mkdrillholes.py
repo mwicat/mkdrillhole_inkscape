@@ -11,7 +11,12 @@ class Mkdrillholes(inkex.EffectExtension):
         pars.add_argument("--hole_count", type=int, default=3)
         pars.add_argument("--distance", type=float, default=25.0)
         pars.add_argument("--diameter", type=float, default=5.0)
+        pars.add_argument("--crosshair", type=inkex.Boolean, default=True)
         pars.add_argument("--cross_size", type=float, default=3.0)
+        pars.add_argument("--pitch_circle", type=inkex.Boolean, default=False)
+        pars.add_argument("--pitch_circle_diameter", type=float, default=50.0)
+        pars.add_argument("--center_hole", type=inkex.Boolean, default=False)
+        pars.add_argument("--center_hole_diameter", type=float, default=5.0)
         pars.add_argument("--unit", default="mm")
 
     def effect(self):
@@ -35,6 +40,28 @@ class Mkdrillholes(inkex.EffectExtension):
         # Cancel any transform on the layer/parents so coordinates stay page-relative
         group.transform = -layer.composed_transform()
 
+        if self.options.pitch_circle:
+            pitch_circle = Circle.new(
+                center=(cx, cy), radius=self.options.pitch_circle_diameter / 2 * u
+            )
+            pitch_circle.style = style
+            group.append(pitch_circle)
+ 
+        if self.options.center_hole:
+            center_hole = Circle.new(
+                center=(cx, cy), radius=self.options.center_hole_diameter / 2 * u
+            )
+            center_hole.style = style
+            group.append(center_hole)
+            if self.options.crosshair:
+                cross = PathElement()
+                cross.path = (
+                    f"M {cx - arm},{cy} L {cx + arm},{cy} "
+                    f"M {cx},{cy - arm} L {cx},{cy + arm}"
+                )
+                cross.style = style
+                group.append(cross)
+
         for i in range(count):
             angle = math.pi / 2 + 2 * math.pi * i / count
             # SVG y axis points down, so flip to keep the first hole on top
@@ -45,13 +72,14 @@ class Mkdrillholes(inkex.EffectExtension):
             circle.style = style
             group.append(circle)
 
-            cross = PathElement()
-            cross.path = (
-                f"M {x - arm},{y} L {x + arm},{y} "
-                f"M {x},{y - arm} L {x},{y + arm}"
-            )
-            cross.style = style
-            group.append(cross)
+            if self.options.crosshair:
+                cross = PathElement()
+                cross.path = (
+                    f"M {x - arm},{y} L {x + arm},{y} "
+                    f"M {x},{y - arm} L {x},{y + arm}"
+                )
+                cross.style = style
+                group.append(cross)
 
 
 if __name__ == "__main__":
