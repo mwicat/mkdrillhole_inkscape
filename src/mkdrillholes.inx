@@ -3,8 +3,11 @@
   <name>Mkdrillholes</name>
   <id>com.mwicat.mkdrillholes</id>
   <param name="hole_count" type="int" min="1" max="1000" gui-text="Number of holes:">3</param>
-  <param name="distance" type="float" min="0" max="100000" precision="3" gui-text="Distance between holes:">25.0</param>
-  <param name="diameter" type="float" min="0" max="100000" precision="3" gui-text="Hole diameter:">5.0</param>
+  <param name="distance_mode" type="optiongroup" appearance="combo" gui-text="Specify hole distance by:">
+    <option value="distance_hole_to_hole">Hole to hole</option>
+    <option value="distance_hole_to_center">Hole to center</option>
+  </param>
+  <param name="distance" type="float" min="0" max="100000" precision="3" gui-text="Hole distance:">25.0</param>
   <param name="crosshair" type="bool" gui-text="Draw crosshairs:">true</param>
   <param name="cross_size" type="float" min="0" max="100000" precision="3" gui-text="Crosshair half-length:">3.0</param>
   <param name="pitch_circle" type="bool" gui-text="Draw pitch circle:">false</param>

@@ -9,6 +9,7 @@ from inkex import Circle, Group, PathElement
 class Mkdrillholes(inkex.EffectExtension):
     def add_arguments(self, pars):
         pars.add_argument("--hole_count", type=int, default=3)
+        pars.add_argument("--distance_mode", default="distance_hole_to_hole")
         pars.add_argument("--distance", type=float, default=25.0)
         pars.add_argument("--diameter", type=float, default=5.0)
         pars.add_argument("--crosshair", type=inkex.Boolean, default=True)
@@ -24,10 +25,13 @@ class Mkdrillholes(inkex.EffectExtension):
         hole_r = self.options.diameter / 2 * u
         arm = self.options.cross_size * u
         count = max(self.options.hole_count, 1)
-        # Neighbouring holes are a chord apart: distance = 2 * R * sin(pi / n)
         radius = 0.0
         if count > 1:
-            radius = self.options.distance * u / (2 * math.sin(math.pi / count))
+            if self.options.distance_mode == "distance_hole_to_center":
+                radius = self.options.distance * u
+            else:
+                # Neighbouring holes are a chord apart: distance = 2 * R * sin(pi / n)
+                radius = self.options.distance * u / (2 * math.sin(math.pi / count))
 
         # Shapes live in viewBox user units, not px, so centre on the viewBox
         vb_x, vb_y, vb_w, vb_h = self.svg.get_viewbox()
