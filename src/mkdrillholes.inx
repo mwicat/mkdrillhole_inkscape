@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+  <name>Mkdrillholes</name>
+  <id>com.mwicat.mkdrillholes</id>
+  <param name="hole_count" type="int" min="1" max="1000" gui-text="Number of holes:">3</param>
+  <param name="distance" type="float" min="0" max="100000" precision="3" gui-text="Distance between holes:">25.0</param>
+  <param name="diameter" type="float" min="0" max="100000" precision="3" gui-text="Hole diameter:">5.0</param>
+  <param name="cross_size" type="float" min="0" max="100000" precision="3" gui-text="Crosshair half-length:">3.0</param>
+  <param name="unit" type="optiongroup" appearance="combo" gui-text="Unit:">
+    <option value="mm">mm</option>
+    <option value="cm">cm</option>
+    <option value="in">in</option>
+    <option value="px">px</option>
+  </param>
+  <effect>
+    <object-type>all</object-type>
+    <effects-menu>
+      <submenu name="Templating"/>
+    </effects-menu>
+  </effect>
+  <script>
+    <command location="inx" interpreter="python">mkdrillholes.py</command>
+  </script>
+</inkscape-extension>
