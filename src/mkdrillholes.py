@@ -18,6 +18,7 @@ class Mkdrillholes(inkex.EffectExtension):
         pars.add_argument("--pitch_circle_diameter", type=float, default=50.0)
         pars.add_argument("--center_hole", type=inkex.Boolean, default=False)
         pars.add_argument("--center_hole_diameter", type=float, default=5.0)
+        pars.add_argument("--to_paths", type=inkex.Boolean, default=False)
         pars.add_argument("--unit", default="mm")
 
     def effect(self):
@@ -84,6 +85,13 @@ class Mkdrillholes(inkex.EffectExtension):
                 )
                 cross.style = style
                 group.append(cross)
+
+        if self.options.to_paths:
+            for child in list(group):
+                if isinstance(child, Circle):
+                    path = child.to_path_element()
+                    path.style = style
+                    group.replace(child, path)
 
 
 if __name__ == "__main__":

@@ -15,6 +15,7 @@
   <param name="pitch_circle_diameter" type="float" min="0" max="100000" precision="3" gui-text="Pitch circle diameter:">50.0</param>
   <param name="center_hole" type="bool" gui-text="Add center hole:">false</param>
   <param name="center_hole_diameter" type="float" min="0" max="100000" precision="3" gui-text="Center hole diameter:">5.0</param>
+  <param name="to_paths" type="bool" gui-text="Convert objects to paths:">false</param>
   <param name="unit" type="optiongroup" appearance="combo" gui-text="Unit:">
     <option value="mm">mm</option>
     <option value="cm">cm</option>
