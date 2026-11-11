@@ -2,18 +2,33 @@
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
   <name>Mkdrillholes</name>
   <id>com.mwicat.mkdrillholes</id>
-  <param name="hole_count" type="int" min="1" max="1000" gui-text="Number of holes:">3</param>
-  <param name="distance_mode" type="optiongroup" appearance="combo" gui-text="Specify hole distance by:">
-    <option value="distance_hole_to_hole">Hole to hole</option>
-    <option value="distance_hole_to_center">Hole to center</option>
+  <param name="pattern" type="optiongroup" appearance="combo" gui-text="Pattern:">
+    <option value="circular">Circular</option>
+    <option value="rectangular">Rectangular (4 holes)</option>
   </param>
-  <param name="distance" type="float" min="0" max="100000" precision="3" gui-text="Hole distance:">25.0</param>
+  <param name="pattern_tabs" type="notebook">
+    <page name="circular_tab" gui-text="Circular">
+      <param name="hole_count" type="int" min="1" max="1000" gui-text="Number of holes:">3</param>
+      <param name="distance_mode" type="optiongroup" appearance="combo" gui-text="Specify hole distance by:">
+        <option value="distance_hole_to_hole">Hole to hole</option>
+        <option value="distance_hole_to_center">Hole to center</option>
+      </param>
+      <param name="distance" type="float" min="0" max="100000" precision="3" gui-text="Hole distance:">25.0</param>
+      <param name="pitch_circle" type="bool" gui-text="Draw pitch circle:">false</param>
+      <param name="pitch_circle_diameter" type="float" min="0" max="100000" precision="3" gui-text="Pitch circle diameter:">50.0</param>
+    </page>
+    <page name="rectangular_tab" gui-text="Rectangular">
+      <param name="rect_width" type="float" min="0" max="100000" precision="3" gui-text="Width (hole to hole):">40.0</param>
+      <param name="rect_height" type="float" min="0" max="100000" precision="3" gui-text="Height (hole to hole):">25.0</param>
+      <param name="pitch_rect" type="bool" gui-text="Draw pitch rectangle:">false</param>
+      <param name="pitch_rect_width" type="float" min="0" max="100000" precision="3" gui-text="Pitch rectangle width:">40.0</param>
+      <param name="pitch_rect_height" type="float" min="0" max="100000" precision="3" gui-text="Pitch rectangle height:">25.0</param>
+    </page>
+  </param>
   <param name="diameter" type="float" min="0" max="100000" precision="3" gui-text="Hole diameter:">5.0</param>
   <param name="rotation" type="float" min="-360" max="360" precision="3" gui-text="Rotation (degrees, counter-clockwise):">0.0</param>
   <param name="crosshair" type="bool" gui-text="Draw crosshairs:">true</param>
   <param name="cross_size" type="float" min="0" max="100000" precision="3" gui-text="Crosshair half-length:">3.0</param>
-  <param name="pitch_circle" type="bool" gui-text="Draw pitch circle:">false</param>
-  <param name="pitch_circle_diameter" type="float" min="0" max="100000" precision="3" gui-text="Pitch circle diameter:">50.0</param>
   <param name="center_hole" type="bool" gui-text="Add center hole:">false</param>
   <param name="center_hole_diameter" type="float" min="0" max="100000" precision="3" gui-text="Center hole diameter:">5.0</param>
   <param name="to_paths" type="bool" gui-text="Convert objects to paths:">false</param>
