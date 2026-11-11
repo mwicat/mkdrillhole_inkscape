@@ -9,6 +9,7 @@
   </param>
   <param name="distance" type="float" min="0" max="100000" precision="3" gui-text="Hole distance:">25.0</param>
   <param name="diameter" type="float" min="0" max="100000" precision="3" gui-text="Hole diameter:">5.0</param>
+  <param name="rotation" type="float" min="-360" max="360" precision="3" gui-text="Rotation (degrees, counter-clockwise):">0.0</param>
   <param name="crosshair" type="bool" gui-text="Draw crosshairs:">true</param>
   <param name="cross_size" type="float" min="0" max="100000" precision="3" gui-text="Crosshair half-length:">3.0</param>
   <param name="pitch_circle" type="bool" gui-text="Draw pitch circle:">false</param>

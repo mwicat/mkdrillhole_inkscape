@@ -12,6 +12,7 @@ class Mkdrillholes(inkex.EffectExtension):
         pars.add_argument("--distance_mode", default="distance_hole_to_hole")
         pars.add_argument("--distance", type=float, default=25.0)
         pars.add_argument("--diameter", type=float, default=5.0)
+        pars.add_argument("--rotation", type=float, default=0.0)
         pars.add_argument("--crosshair", type=inkex.Boolean, default=True)
         pars.add_argument("--cross_size", type=float, default=3.0)
         pars.add_argument("--pitch_circle", type=inkex.Boolean, default=False)
@@ -63,7 +64,11 @@ class Mkdrillholes(inkex.EffectExtension):
                 group.append(cross)
 
         for i in range(count):
-            angle = math.pi / 2 + 2 * math.pi * i / count
+            angle = (
+                math.pi / 2
+                + math.radians(self.options.rotation)
+                + 2 * math.pi * i / count
+            )
             # SVG y axis points down, so flip to keep the first hole on top
             x = cx + radius * math.cos(angle)
             y = cy - radius * math.sin(angle)
