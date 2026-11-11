@@ -45,18 +45,12 @@ class Mkdrillholes(inkex.EffectExtension):
         # Cancel any transform on the layer/parents so coordinates stay page-relative
         group.transform = -layer.composed_transform()
 
-        if self.options.pitch_circle:
-            pitch_circle = Circle.new(
-                center=(cx, cy), radius=self.options.pitch_circle_diameter / 2 * u
-            )
-            pitch_circle.style = style
-            group.append(pitch_circle)
- 
         if self.options.center_hole:
             center_hole = Circle.new(
                 center=(cx, cy), radius=self.options.center_hole_diameter / 2 * u
             )
             center_hole.style = style
+            self.name(center_hole, "center_hole")
             group.append(center_hole)
             if self.options.crosshair:
                 cross = PathElement()
@@ -65,6 +59,7 @@ class Mkdrillholes(inkex.EffectExtension):
                     f"M {cx},{cy - arm} L {cx},{cy + arm}"
                 )
                 cross.style = style
+                self.name(cross, "center_hole_crosshair")
                 group.append(cross)
 
         for i in range(count):
@@ -75,6 +70,7 @@ class Mkdrillholes(inkex.EffectExtension):
 
             circle = Circle.new(center=(x, y), radius=hole_r)
             circle.style = style
+            self.name(circle, f"hole_{i + 1}")
             group.append(circle)
 
             if self.options.crosshair:
@@ -84,14 +80,29 @@ class Mkdrillholes(inkex.EffectExtension):
                     f"M {x},{y - arm} L {x},{y + arm}"
                 )
                 cross.style = style
+                self.name(cross, f"hole_{i + 1}_crosshair")
                 group.append(cross)
+
+        if self.options.pitch_circle:
+            pitch_circle = Circle.new(
+                center=(cx, cy), radius=self.options.pitch_circle_diameter / 2 * u
+            )
+            pitch_circle.style = style
+            self.name(pitch_circle, "pitch_circle")
+            group.append(pitch_circle)
 
         if self.options.to_paths:
             for child in list(group):
                 if isinstance(child, Circle):
                     path = child.to_path_element()
                     path.style = style
+                    self.name(path, child.get("inkscape:label"))
                     group.replace(child, path)
+
+    @staticmethod
+    def name(elem, label):
+        """Give an element a descriptive label (shown in Inkscape's XML/Objects panels)."""
+        elem.set("inkscape:label", label)
 
 
 if __name__ == "__main__":
