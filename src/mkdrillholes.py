@@ -20,6 +20,8 @@ class Mkdrillholes(inkex.EffectExtension):
         pars.add_argument("--distance", type=float, default=25.0)
         pars.add_argument("--diameter", type=float, default=5.0)
         pars.add_argument("--rotation", type=float, default=0.0)
+        pars.add_argument("--center_x", type=float, default=0.0)
+        pars.add_argument("--center_y", type=float, default=0.0)
         pars.add_argument("--crosshair", type=inkex.Boolean, default=True)
         pars.add_argument("--cross_size", type=float, default=3.0)
         pars.add_argument("--pitch_circle", type=inkex.Boolean, default=False)
@@ -60,8 +62,9 @@ class Mkdrillholes(inkex.EffectExtension):
 
         # Shapes live in viewBox user units, not px, so centre on the viewBox
         vb_x, vb_y, vb_w, vb_h = self.svg.get_viewbox()
-        cx = vb_x + vb_w / 2
-        cy = vb_y + vb_h / 2
+        # Pattern center in absolute page coordinates (origin top-left, y downwards)
+        cx = vb_x + self.options.center_x * u
+        cy = vb_y + self.options.center_y * u
 
         style = {"stroke": "#000000", "stroke-width": str(0.1 * u), "fill": "none"}
         layer = self.svg.get_current_layer()

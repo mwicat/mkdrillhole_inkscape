@@ -27,6 +27,8 @@
   </param>
   <param name="diameter" type="float" min="0" max="100000" precision="3" gui-text="Hole diameter:">5.0</param>
   <param name="rotation" type="float" min="-360" max="360" precision="3" gui-text="Rotation (degrees, counter-clockwise):">0.0</param>
+  <param name="center_x" type="float" min="-100000" max="100000" precision="3" gui-text="Pattern center X:">0.0</param>
+  <param name="center_y" type="float" min="-100000" max="100000" precision="3" gui-text="Pattern center Y:">0.0</param>
   <param name="crosshair" type="bool" gui-text="Draw crosshairs:">true</param>
   <param name="cross_size" type="float" min="0" max="100000" precision="3" gui-text="Crosshair half-length:">3.0</param>
   <param name="center_hole" type="bool" gui-text="Add center hole:">false</param>
